@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "850795679880",
+    "project_id": "heygrupos-2fc81",
+    "storage_bucket": "heygrupos-2fc81.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850795679880:android:461b532016b74590a70f3d",
+        "android_client_info": {
+          "package_name": "com.heygrupos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsvsLd-zKWfHoR0aWBX8mxskddj5e24po"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

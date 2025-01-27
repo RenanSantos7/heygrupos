@@ -21,11 +21,18 @@ export default function AppRoutes() {
 			}}
 			initialRouteName='ChatRoom'
 		>
-			<AppStack.Screen name='Login' component={SignIn} />
+			<AppStack.Screen
+				name='Login'
+				component={SignIn}
+				options={{
+					title: 'Faça o Login',
+					headerShown: true,
+				}}
+			/>
 
 			<AppStack.Screen name='ChatRoom' component={ChatRoom} />
-			
-            <AppStack.Screen name='Messages' component={Messages} />
+
+			<AppStack.Screen name='Messages' component={Messages} />
 		</AppStack.Navigator>
 	);
 }

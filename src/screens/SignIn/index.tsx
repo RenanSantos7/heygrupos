@@ -1,15 +1,25 @@
 import { Alert, Text, View } from 'react-native';
+import { useState } from 'react';
+import auth from '@react-native-firebase/auth';
+
 import Page from '../../components/layout/Page';
 import styles from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import { useState } from 'react';
 
 export default function SignIn() {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [status, setStatus] = useState<'login' | 'signup'>('login');
+	const [isLoggingIn, setIsLogginIn] = useState(true);
+
+	function handleLogin() {
+		if (isLoggingIn) {
+			// login
+		} else {
+			// cadastro
+		}
+	}
 
 	return (
 		<Page>
@@ -20,7 +30,7 @@ export default function SignIn() {
 				</Text>
 			</View>
 
-			{status === 'login' ? (
+			{isLoggingIn ? (
 				<View style={styles.form}>
 					<Input
 						value={email}
@@ -34,17 +44,6 @@ export default function SignIn() {
 						onChangeText={text => setPassword(text)}
 						placeholder='Digite aqui a sua senha'
 						secret
-					/>
-
-					<Button
-						title='Acessar'
-						onPress={() => Alert.alert('Olá', 'Mundo!')}
-					/>
-
-					<Button
-						title='Criar uma nova conta'
-						variant='secondary'
-						onPress={() => setStatus('signup')}
 					/>
 				</View>
 			) : (
@@ -68,19 +67,19 @@ export default function SignIn() {
 						placeholder='Sua senha'
 						secret
 					/>
-
-					<Button
-						title='Acessar'
-						onPress={() => Alert.alert('Olá', 'Mundo!')}
-					/>
-
-					<Button
-						title='Faça login'
-						variant='secondary'
-						onPress={() => setStatus('login')}
-					/>
 				</View>
 			)}
+
+			<Button
+				title={isLoggingIn ? 'Acessar' : 'Cadastrar'}
+				onPress={handleLogin}
+			/>
+
+			<Button
+				title={isLoggingIn ? 'Criar nova conta' : 'Já possuo uma conta'}
+				variant='secondary'
+				onPress={() => setIsLogginIn(prev => !prev)}
+			/>
 		</Page>
 	);
 }

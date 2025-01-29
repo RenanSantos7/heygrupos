@@ -1,0 +1,1 @@
+export {default as Magnifying} from './Magnifying.tsx'

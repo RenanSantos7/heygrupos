@@ -1,13 +1,29 @@
 import { ReactNode } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { ColorValue, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
 interface PageProps {
 	children: ReactNode;
+	statusBarColor?: ColorValue;
+	clearPadding?: boolean;
 }
 
-export default function Page(props: PageProps) {
+export default function Page({
+	children,
+	statusBarColor = '#ffffff',
+	clearPadding = false,
+}: PageProps) {
 	return (
-		<SafeAreaView style={styles.container}>{props.children}</SafeAreaView>
+		<SafeAreaView
+			style={[
+				styles.container,
+				clearPadding
+					? { paddingHorizontal: 0 }
+					: { paddingHorizontal: 20 },
+			]}
+		>
+			<StatusBar barStyle='default' backgroundColor={statusBarColor} />
+			{children}
+		</SafeAreaView>
 	);
 }
 
@@ -16,7 +32,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignContent: 'center',
-		paddingHorizontal: 20,
-		backgroundColor: 'hsla(0, 0%, 100%, 1)',
+		backgroundColor: '#f6f6f6',
 	},
 });

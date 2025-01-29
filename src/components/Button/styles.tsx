@@ -2,7 +2,11 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 
 const buttonStyle: ViewStyle = {
     padding: 16,
-    borderRadius: 8,
+	borderRadius: 8,
+	flexDirection: 'row',
+	justifyContent: 'center',
+	alignItems: 'center',
+	gap: 16,
 };
 
 const textStyle: TextStyle = {
@@ -27,6 +31,9 @@ const styles = StyleSheet.create({
 	secondaryTxt: {
 		...textStyle,
 	},
+	disabled: {
+		filter: 'grayscale(0.75)'
+	}
 });
 
 export default styles;

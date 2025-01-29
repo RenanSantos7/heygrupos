@@ -6,7 +6,7 @@ import Header from './components/Header';
 import styles from './styles';
 import theme from '../../defaultStyles';
 import ChatList from './components/ChatList';
-import { IChat } from '../../@type';
+import { IChat } from '../../@types';
 
 const grupos: IChat[] = [
     { id: '01', name: 'react-native', lastMsg: 'Olá mundo!' },
@@ -28,7 +28,9 @@ export default function ChatRoom() {
 
             <ChatList
                 chats={grupos}
-            />
+			/>
+			
+			<Button title='Logar' onPress={() => navigation.navigate('Login')} />
 		</View>
 	);
 }

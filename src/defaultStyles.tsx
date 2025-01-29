@@ -7,7 +7,7 @@ const theme = {
         },
         error: '#f64b57',
         background: '#fffff',
-        card: '#f6f6f6',
+        card: '#f5f5f5',
         text: {
             main: '#000000',
             light: '#bababa;'

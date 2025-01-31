@@ -11,7 +11,7 @@ import { Alert } from 'react-native';
 import { IUser } from '../@types';
 import isEmptyObj from '../utils/isEmptyObj';
 
-type FirebaseUser = FirebaseAuthTypes.User
+type FirebaseUser = FirebaseAuthTypes.User;
 
 interface IAuthContext {
 	currentUser: IUser;
@@ -79,17 +79,23 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 	useEffect(() => {
 		const subscriber = auth().onAuthStateChanged(() => {
 			//@ts-expect-error async function return
-			const user: FirebaseUser = auth().currentUser.toJSON();
-
-			setCurrentUser({
-				uid: user.uid,
-				name: user.displayName,
-				email: user.email,
-				photoUrl: user.photoURL,
-			});
+			const user: FirebaseUser = auth().currentUser
+				? auth().currentUser.toJSON()
+				: null;
+			
+			if (user) {
+				setCurrentUser({
+					uid: user.uid,
+					name: user.displayName,
+					email: user.email,
+					photoUrl: user.photoURL,
+				});
+			} else {
+				setCurrentUser(null);
+			}
 		});
-		
-		// return subscriber;
+
+		return subscriber;
 	}, []);
 
 	return (

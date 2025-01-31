@@ -55,7 +55,7 @@ export default function ChatRoom() {
 		return () => {
 			isActive = false;
 		};
-	}, [isFocused]);
+	}, [isFocused, modalOpen]);
 
 	return (
 		<View style={styles.container}>

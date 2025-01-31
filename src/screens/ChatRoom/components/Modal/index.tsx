@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import {
+	Alert,
 	Modal,
 	ModalProps,
 	Text,
@@ -25,7 +26,53 @@ export default function ModalNewGroup(props: NewProps) {
 
 	function handleButtonCreate() {
 		if (groupName === '') return;
-		createRoom();
+
+		// limitar usuário a criar no máximo 4 salas
+		firestore()
+			.collection('MESSAGE_THREADS')
+			.get()
+			.then(({ docs }) => {
+				let myThreads = 0;
+
+				docs.map(item => {
+					if (item.data().owner === currentUser.uid) {
+						myThreads++;
+					}
+				});
+
+				if (myThreads >= 4) {
+					Alert.alert(
+						'Você já atingiu o limite de salas por usuário'
+					);
+				} else {
+					if (groupName === 'Java') {
+						Alert.alert(
+							'PERIGO!',
+							'Javeiro(a) safado(a) detectado(a)!',
+							[
+								{
+									text: 'Desculpa',
+									style: 'cancel',
+									onPress: () => {
+										setGroupName('');
+										props.setVisible(false);
+									},
+								},
+								{
+									text: 'Sou mesmo!',
+									style: 'destructive',
+									onPress: () => createRoom(),
+								},
+							],
+							{
+								cancelable: true,
+							}
+						);
+					}
+
+					createRoom();
+				}
+			});
 	}
 
 	function createRoom() {
@@ -73,10 +120,7 @@ export default function ModalNewGroup(props: NewProps) {
 						placeholder='Nome para o grupo'
 					/>
 
-                    <Button
-                        title='Criar sala'
-                        onPress={handleButtonCreate}
-                    />
+					<Button title='Criar sala' onPress={handleButtonCreate} />
 
 					<Button
 						title='Voltar'

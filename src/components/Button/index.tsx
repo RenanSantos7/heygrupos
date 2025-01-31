@@ -12,7 +12,7 @@ import theme from '../../defaultStyles';
 
 interface ButtonProps extends PressableProps {
 	title: string;
-	variant?: 'primary' | 'secondary';
+	variant?: 'primary' | 'secondary' | 'danger';
 	loading?: boolean;
 }
 
@@ -24,7 +24,10 @@ export default function Button({
 	loading,
 	...props
 }: ButtonProps) {
-	const txtStyle = useMemo<TextStyle>(() => `${variant}Txt`, [variant]);
+	const txtStyle = useMemo<TextStyle>(() => {
+		if (variant === 'danger') return 'primaryTxt';
+		return `${variant}Txt`;
+	}, [variant]);
 
 	return (
 		<Pressable

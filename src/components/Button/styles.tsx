@@ -1,4 +1,5 @@
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import theme from '../../defaultStyles';
 
 const buttonStyle: ViewStyle = {
     padding: 16,
@@ -33,6 +34,10 @@ const styles = StyleSheet.create({
 	},
 	disabled: {
 		filter: 'grayscale(0.75)'
+	},
+	danger: {
+		...buttonStyle,
+		backgroundColor: theme.colors.error
 	}
 });
 

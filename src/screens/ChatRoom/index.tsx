@@ -21,6 +21,16 @@ export default function ChatRoom() {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [chats, setChats] = useState<IChat[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [updateScreen, setUpdateScreen] = useState(false);
+	
+	async function deleteRoom(id: string) {
+		await firestore().collection('MESSAGE_THREADS').doc(id).delete();
+		setUpdateScreen(prev => !prev);
+	}
+	
+	useEffect(() => {
+		setUpdateScreen(!updateScreen)
+	}, [modalOpen]);
 
 	useEffect(() => {
 		let isActive = true;
@@ -55,7 +65,7 @@ export default function ChatRoom() {
 		return () => {
 			isActive = false;
 		};
-	}, [isFocused, modalOpen]);
+	}, [isFocused, updateScreen]);
 
 	return (
 		<View style={styles.container}>
@@ -69,14 +79,17 @@ export default function ChatRoom() {
 			{loading ? (
 				<Loading />
 			) : (
-				<ChatList chats={chats} />
+				<ChatList chats={chats} deleteRoom={deleteRoom} />
 			)}
 
 			{isSignedIn && (
 				<FloatingButton onPress={() => setModalOpen(true)} />
 			)}
 
-			<ModalNewGroup visible={modalOpen} setVisible={setModalOpen} />
+			<ModalNewGroup
+				visible={modalOpen}
+				setVisible={setModalOpen}
+			/>
 		</View>
 	);
 }

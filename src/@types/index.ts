@@ -6,7 +6,8 @@ export interface IChat {
     lastMessage: {
         text: string;
         createdAt?: Timestamp
-    }
+    },
+    owner?: string;
 }
 
 export interface IUser {

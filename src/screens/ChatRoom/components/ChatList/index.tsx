@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import { IChat } from '../../../../@types';
 import ChatItem from '../ChatItem';
-import theme from '../../../../defaultStyles';
 
 interface ChatListProps {
 	chats: IChat[];
+	deleteRoom: (id: string) => void;
 }
 
 export default function ChatList(props: ChatListProps) {
@@ -20,8 +20,8 @@ export default function ChatList(props: ChatListProps) {
 			data={props.chats}
 			renderItem={({ item }) => (
 				<ChatItem
-					title={item.name}
-					lastMsg={item.lastMessage.text || ''}
+					chat={item}
+					deleteRoom={props.deleteRoom}
 				/>
 			)}
 			ItemSeparatorComponent={() => <View style={{ height: 12 }} />}

@@ -1,31 +1,67 @@
-import { Alert, Pressable, Text, TouchableOpacity, View } from 'react-native';
-import styles from './styles';
+import { Alert, Text, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+
 import { AppStackParams } from '../../../../routes/app.routes';
+import { IChat } from '../../../../@types';
 import { useAuthContext } from '../../../../contexts/authContext';
+import styles from './styles';
 
 interface ChatItemProps {
-    title: string;
-    lastMsg: string;
-};
+    chat: IChat;
+    deleteRoom: (id: string) => void
+}
 
-export default function ChatItem(props: ChatItemProps) {
-    const navigation = useNavigation<NavigationProp<AppStackParams>>();
-    const { isSignedIn } = useAuthContext();
+export default function ChatItem({ chat, deleteRoom }: ChatItemProps) {
+	const navigation = useNavigation<NavigationProp<AppStackParams>>();
+	const { isSignedIn, currentUser } = useAuthContext();
 
-    function handleClick() {
-        if (!isSignedIn) {
-            navigation.navigate('Login');
-        } else {
-            // navigation.navigate('Messages')
-            Alert.alert('Messagens', 'Tamo trabalhando nisso')
-        }
-    }
+	function handleClick() {
+		if (!isSignedIn) {
+			navigation.navigate('Login');
+		} else {
+			// navigation.navigate('Messages')
+			Alert.alert('Messagens', 'Tamo trabalhando nisso');
+		}
+	}
 
-    return (
-        <TouchableOpacity onPress={handleClick} style={styles.container} >
-            <Text style={styles.title} numberOfLines={1}>{props.title}</Text>
-            <Text style={styles.text} numberOfLines={1}>{props.lastMsg}</Text>
-        </TouchableOpacity>
-    );
-};
+	function handleLongPress() {
+		if (chat.owner === currentUser.uid) {
+			Alert.alert(
+				'Atenção',
+				'Tem certeza de que quer deletar essa sala?',
+				[
+					{ text: 'Não', style: 'cancel' },
+					{
+						text: 'Sim',
+						style: 'destructive',
+						onPress: () => {
+							deleteRoom(chat.id);
+						},
+					},
+				],
+				{ cancelable: true }
+			);
+		} else {
+			Alert.alert(
+				'Atenção',
+				'Você não pode deletar esta sala pois não é proprietário dela.'
+			);
+		}
+	}
+
+	return (
+		<TouchableOpacity
+			style={styles.container}
+			onPress={handleClick}
+			onLongPress={handleLongPress}
+		>
+			<Text style={styles.title} numberOfLines={1}>
+				{chat.name}
+			</Text>
+			<Text style={styles.text} numberOfLines={1}>
+				{chat.lastMessage.text}
+			</Text>
+		</TouchableOpacity>
+	);
+}

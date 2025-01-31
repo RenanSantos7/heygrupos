@@ -10,7 +10,7 @@ const theme = {
         card: '#f5f5f5',
         text: {
             main: '#000000',
-            light: '#bababa;'
+            light: '#a0a0a0',
         }
 
     }

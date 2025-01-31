@@ -21,7 +21,7 @@ export default function Page({
 					: { paddingHorizontal: 20 },
 			]}
 		>
-			<StatusBar barStyle='default' backgroundColor={statusBarColor} />
+			<StatusBar barStyle='dark-content' backgroundColor={statusBarColor} />
 			{children}
 		</SafeAreaView>
 	);
@@ -30,8 +30,6 @@ export default function Page({
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
-		alignContent: 'center',
 		backgroundColor: '#f6f6f6',
 	},
 });

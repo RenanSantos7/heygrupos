@@ -8,9 +8,11 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Page from '../../components/layout/Page';
 import styles from './styles';
+import { useAuthContext } from '../../contexts/authContext';
 
 export default function SignIn() {
 	const navigation = useNavigation<NavigationProp<AppStackParams>>();
+	const { isSignedIn, signIn, signUp, signOut } = useAuthContext();
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -26,14 +28,12 @@ export default function SignIn() {
 				return;
 			}
 			setLoading(true);
-			auth()
-				.signInWithEmailAndPassword(email, password)
+			signIn(email, password)
 				.then(() => {
 					navigation.goBack();
 				})
 				.catch(error => {
 					console.error(error);
-					Alert.alert('Erro', error);
 				})
 				.finally(() => setLoading(false));
 		} else {
@@ -43,17 +43,9 @@ export default function SignIn() {
 			}
 
 			setLoading(true);
-			auth()
-				.createUserWithEmailAndPassword(email, password)
-				.then(snapshot => {
-					// também é comum usar 'user'
-					snapshot.user
-						.updateProfile({
-							displayName: name,
-						})
-						.then(() => {
-							navigation.goBack();
-						});
+			signUp(name, email, password)
+				.then(() => {
+					navigation.goBack();
 				})
 				.catch(error => {
 					if (error.code === 'auth/email-already-in-use') {
@@ -69,7 +61,6 @@ export default function SignIn() {
 					}
 
 					console.error(error);
-					Alert.alert('Erro', error);
 				})
 				.finally(() => setLoading(false));
 		}
@@ -92,6 +83,8 @@ export default function SignIn() {
 				<View style={styles.form}>
 					<Input
 						value={email}
+						keyboardType='email-address'
+						autoCapitalize='none'
 						onChangeText={text => setEmail(text)}
 						placeholder='Qual seu email?'
 						autoFocus
@@ -115,6 +108,8 @@ export default function SignIn() {
 
 					<Input
 						value={email}
+						keyboardType='email-address'
+						autoCapitalize='none'
 						onChangeText={text => setEmail(text)}
 						placeholder='Seu e-mail'
 					/>

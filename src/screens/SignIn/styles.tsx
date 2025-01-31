@@ -4,6 +4,7 @@ import theme from '../../defaultStyles';
 const styles = StyleSheet.create({
     titleContainer: {
         marginBottom: 48,
+        marginTop: 80,
     },
     title: {
         fontSize: 32,

@@ -1,19 +1,30 @@
-import { Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Pressable, Text, View } from 'react-native';
 
+import { ArrowLeft, Magnifying, Out } from '../../../../components/Icons';
 import styles from './styles';
-import Magnifying from '../../../../components/Icons/Magnifying';
+import { useAuthContext } from '../../../../contexts/authContext';
 
-interface HeaderProps {
-    
-};
+interface HeaderProps {}
 
 export default function Header(props: HeaderProps) {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Grupos</Text>
+	const { isSignedIn, signOut } = useAuthContext();
 
-            <Magnifying size={30} />
-        </View>
-    );
-};
+	return (
+		<View style={styles.container}>
+			<View style={styles.headerLeft}>
+				{isSignedIn && (
+					<Pressable
+						onPressOut={() => signOut()}
+						style={styles.signOutButton}
+					>
+						<Out size={20} />
+					</Pressable>
+				)}
+
+				<Text style={styles.title}>Grupos</Text>
+			</View>
+
+			<Magnifying size={30} />
+		</View>
+	);
+}

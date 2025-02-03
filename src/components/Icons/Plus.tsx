@@ -1,7 +1,7 @@
 import Svg, { Path, Rect } from 'react-native-svg';
 import { IconProps } from './types';
 
-export default function Plus({
+export default function PlusIcon({
 	size = 24,
 	color = '#ffffff',
 	strokeWidth = 2,

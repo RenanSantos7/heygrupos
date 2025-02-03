@@ -1,8 +1,7 @@
-import { Text, View } from 'react-native';
-import { IconProps } from './types';
 import Svg, { Path } from 'react-native-svg';
+import { IconProps } from './types';
 
-export default function ArrowLeft({
+export default function ArrowLeftIcon({
 	size = 30,
 	color = '#ffffff',
 	strokeWidth = 2.5,

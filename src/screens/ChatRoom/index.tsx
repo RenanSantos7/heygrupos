@@ -13,6 +13,7 @@ import Loading from './components/Loading';
 import ModalNewGroup from './components/Modal';
 import styles from './styles';
 import theme from '../../defaultStyles';
+import Drawer from './components/Drawer';
 
 export default function ChatRoom() {
 	const { isSignedIn } = useAuthContext();
@@ -22,6 +23,7 @@ export default function ChatRoom() {
 	const [chats, setChats] = useState<IChat[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [updateScreen, setUpdateScreen] = useState(false);
+	const [drawerOpen, setDrawerOpen] = useState(false);
 	
 	async function deleteRoom(id: string) {
 		await firestore().collection('MESSAGE_THREADS').doc(id).delete();
@@ -74,7 +76,7 @@ export default function ChatRoom() {
 				barStyle='light-content'
 			/>
 
-			<Header />
+			<Header openMenu={() => setDrawerOpen(true)} />
 
 			{loading ? (
 				<Loading />
@@ -89,6 +91,11 @@ export default function ChatRoom() {
 			<ModalNewGroup
 				visible={modalOpen}
 				setVisible={setModalOpen}
+			/>
+
+			<Drawer
+				visibility={drawerOpen}
+				closeModal={() => setDrawerOpen(false)}
 			/>
 		</View>
 	);

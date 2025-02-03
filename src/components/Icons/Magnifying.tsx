@@ -1,7 +1,7 @@
 import Svg, { Path } from 'react-native-svg';
 import { IconProps } from './types';
 
-export default function Magnifying({
+export default function MagnifyingIcon({
 	size = 24,
 	color = '#ffffff',
 	strokeWidth = 3,

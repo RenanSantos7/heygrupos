@@ -1,10 +1,12 @@
 import { Pressable, Text, View } from 'react-native';
 
-import { ArrowLeft, Magnifying, Out } from '../../../../components/Icons';
+import { ArrowLeftIcon, MagnifyingIcon, MenuIcon } from '../../../../components/Icons';
 import styles from './styles';
 import { useAuthContext } from '../../../../contexts/authContext';
 
-interface HeaderProps {}
+interface HeaderProps {
+	openMenu: () => void;
+}
 
 export default function Header(props: HeaderProps) {
 	const { isSignedIn, signOut } = useAuthContext();
@@ -14,17 +16,17 @@ export default function Header(props: HeaderProps) {
 			<View style={styles.headerLeft}>
 				{isSignedIn && (
 					<Pressable
-						onPressOut={() => signOut()}
+						onPressOut={() => props.openMenu()}
 						style={styles.signOutButton}
 					>
-						<Out size={20} />
+						<MenuIcon />
 					</Pressable>
 				)}
 
 				<Text style={styles.title}>Grupos</Text>
 			</View>
 
-			<Magnifying size={30} />
+			<MagnifyingIcon size={30} />
 		</View>
 	);
 }

@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
         borderRadius: 600,
         color: theme.colors.text.main,
         backgroundColor: '#fff',
-        elevation: 1,
         padding: 10,
         paddingLeft: 20,
     },

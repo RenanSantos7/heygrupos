@@ -11,7 +11,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import styles from './styles.tsx';
-import Input from '../../../../components/Input/index.tsx';
+import Input from '../../../SignIn/components/Input/index.tsx';
 import Button from '../../../../components/Button/index.tsx';
 import { useAuthContext } from '../../../../contexts/authContext.tsx';
 

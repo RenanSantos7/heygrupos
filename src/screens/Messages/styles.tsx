@@ -5,13 +5,30 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f0f0f0',
-        flexDirection: 'column-reverse'
     },
+    msgContainer: {
+        flex: 1,
+        paddingHorizontal: 20,
+        justifyContent: 'flex-end'
+    },
+    msgList: {
+        flexDirection: 'column-reverse'
+    }, 
     msgBar: {
         paddingHorizontal: 20,
         paddingVertical: 15,
         flexDirection: 'row',
         gap: 12,
+    },
+    input: {
+        flex: 1,
+        borderRadius: 600,
+        color: theme.colors.text.main,
+        backgroundColor: '#fff',
+        padding: 10,
+        paddingLeft: 20,
+        maxHeight: 130,
+        minHeight: 48
     },
     sendBtn: {
         backgroundColor: theme.colors.secondary.main,
@@ -22,9 +39,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         elevation: 1
     },
-    msgContainer: {
-        paddingHorizontal: 20
-    }
 });
 
 export default styles;

@@ -18,9 +18,12 @@ export interface IUser {
 }
 
 export interface IMessage {
-    createdAt: FirebaseFirestoreTypes.Timestamp;
-    system?: boolean,
-    text: string;
-    owner?: string;
     id: string;
+    text: string;
+    createdAt: FirebaseFirestoreTypes.FieldValue;
+    system?: boolean,
+    user?: {
+        id: string;
+        name: string;
+    }
 }

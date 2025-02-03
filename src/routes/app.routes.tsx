@@ -8,6 +8,7 @@ export type AppStackParams = {
 	Login: undefined;
 	ChatRoom: undefined;
 	Messages: {
+		id: string;
 		chatName: string;
 	};
 };

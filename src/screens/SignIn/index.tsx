@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 
 import { AppStackParams } from '../../routes/app.routes';
 import Button from '../../components/Button';
-import Input from '../../components/Input';
+import Input from './components/Input';
 import Page from '../../components/layout/Page';
 import styles from './styles';
 import { useAuthContext } from '../../contexts/authContext';

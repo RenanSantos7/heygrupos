@@ -5,7 +5,7 @@ import theme from '../../../../defaultStyles';
 export default function Message(props: MessageComponentProp) {
     return (
         <View style={styles.container}>
-            <Text style={styles.owner}>{props.ownerName}</Text>
+            <Text style={styles.owner}>{props.userName}</Text>
             <Text style={styles.text}>{props.text}</Text>
         </View>
     );

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import theme from '../../../../defaultStyles';
 
 const styles = StyleSheet.create({
     input: {
@@ -7,6 +8,7 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         backgroundColor: 'hsla(0, 0%, 92%, 1)',
         borderRadius: 8,
+        color: theme.colors.text.main
     },
 });
 

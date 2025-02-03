@@ -18,7 +18,12 @@ export default function ChatItem({ chat, deleteRoom }: ChatItemProps) {
 
 	function handleClick() {
 		if (isSignedIn) {
-			navigate('Messages', { chatName: chat.name });
+			navigate('Messages',
+				{
+					id: chat.id,
+					chatName: chat.name,
+				}
+			);
 		} else {
 			navigate('Login');
 		}

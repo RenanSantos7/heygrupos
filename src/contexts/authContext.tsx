@@ -67,8 +67,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 					onPress: () => {
 						auth()
 							.signOut()
-							.then(() => setCurrentUser(null))
-							.then(() => Alert.alert('Aviso', 'Saiu!'));
+							.then(() => setCurrentUser(null));
 					},
 				},
 			],
@@ -82,7 +81,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 			const user: FirebaseUser = auth().currentUser
 				? auth().currentUser.toJSON()
 				: null;
-			
+
 			if (user) {
 				setCurrentUser({
 					uid: user.uid,

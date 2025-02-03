@@ -13,15 +13,14 @@ interface ChatItemProps {
 }
 
 export default function ChatItem({ chat, deleteRoom }: ChatItemProps) {
-	const navigation = useNavigation<NavigationProp<AppStackParams>>();
+	const { navigate } = useNavigation<NavigationProp<AppStackParams>>();
 	const { isSignedIn, currentUser } = useAuthContext();
 
 	function handleClick() {
-		if (!isSignedIn) {
-			navigation.navigate('Login');
+		if (isSignedIn) {
+			navigate('Messages', { chatName: chat.name });
 		} else {
-			// navigation.navigate('Messages')
-			Alert.alert('Messagens', 'Tamo trabalhando nisso');
+			navigate('Login');
 		}
 	}
 

@@ -96,6 +96,10 @@ export default function SignIn() {
 						placeholder='Digite aqui a sua senha'
 						secret
 					/>
+
+					{errorMsg && (
+						<Text style={styles.error}>{errorMsg}]</Text>
+					)}
 				</View>
 			) : (
 				<View style={styles.form}>
@@ -122,7 +126,7 @@ export default function SignIn() {
 					/>
 
 					{errorMsg && (
-						<Text style={styles.error}>Mensagem de erro</Text>
+						<Text style={styles.error}>{errorMsg}]</Text>
 					)}
 				</View>
 			)}

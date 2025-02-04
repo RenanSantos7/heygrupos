@@ -6,6 +6,7 @@ import {
 	StatusBar,
 	TextInput,
 	TouchableHighlight,
+	TouchableOpacity,
 	View,
 } from 'react-native';
 import {
@@ -36,6 +37,38 @@ export default function Messages({ route }: MessagesProps) {
 	const [messages, setMessages] = useState([]);
 	const [input, setInput] = useState('');
 
+	async function sendMessage() {
+		if (input !== '') {
+			await firestore()
+				.collection('MESSAGE_THREADS')
+				.doc(params.id)
+				.collection('MESSAGES')
+				.add({
+					text: input,
+					createdAt: firestore.FieldValue.serverTimestamp(),
+					user: {
+						id: currentUser.uid,
+						name: currentUser.name,
+					},
+				});
+
+			await firestore()
+				.collection('MESSAGE_THREADS')
+				.doc(params.id)
+				.set(
+					{
+						lastMessage: {
+							text: input,
+							createdAt: firestore.FieldValue.serverTimestamp(),
+						},
+					},
+					{ merge: true }
+				);
+
+			setInput('');
+		}
+	}
+
 	useEffect(() => {
 		const unsubscriberListener = firestore()
 			.collection('MESSAGE_THREADS')
@@ -55,7 +88,7 @@ export default function Messages({ route }: MessagesProps) {
 					if (!firebaseData.system) {
 						data.user = {
 							...firebaseData.user,
-							name: firebaseData.user.displayName,
+							name: firebaseData.user.name,
 						};
 					}
 
@@ -90,9 +123,9 @@ export default function Messages({ route }: MessagesProps) {
 						);
 					}}
 					ItemSeparatorComponent={() => (
-						<View style={{ height: 6 }} />
+						<View style={{ height: 8 }} />
 					)}
-					style={styles.msgList}
+					inverted
 				/>
 			</View>
 
@@ -110,9 +143,13 @@ export default function Messages({ route }: MessagesProps) {
 					multiline
 				/>
 
-				<TouchableHighlight style={styles.sendBtn}>
+				<TouchableOpacity
+					activeOpacity={0.65}
+					style={styles.sendBtn}
+					onPress={sendMessage}
+				>
 					<SendIcon />
-				</TouchableHighlight>
+				</TouchableOpacity>
 			</KeyboardAvoidingView>
 		</SafeAreaView>
 	);

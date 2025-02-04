@@ -1,14 +1,17 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { Pressable, Text, View } from 'react-native';
 
-import { ArrowLeftIcon, MagnifyingIcon, MenuIcon } from '../../../../components/Icons';
-import styles from './styles';
+import { AppStackParams } from '../../../../routes/app.routes';
+import { MagnifyingIcon, MenuIcon } from '../../../../components/Icons';
 import { useAuthContext } from '../../../../contexts/authContext';
+import styles from './styles';
 
 interface HeaderProps {
 	openMenu: () => void;
 }
 
 export default function Header(props: HeaderProps) {
+	const { navigate } = useNavigation<NavigationProp<AppStackParams>>();
 	const { isSignedIn, signOut } = useAuthContext();
 
 	return (
@@ -26,7 +29,9 @@ export default function Header(props: HeaderProps) {
 				<Text style={styles.title}>Grupos</Text>
 			</View>
 
-			<MagnifyingIcon size={30} />
+			<Pressable onPress={() => navigate('Search')}>
+				<MagnifyingIcon size={30} />
+			</Pressable>
 		</View>
 	);
 }

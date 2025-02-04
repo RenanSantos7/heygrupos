@@ -1,9 +1,18 @@
-import { Image, Modal, Pressable, Text, View } from 'react-native';
-import styles from './styles';
-import { useAuthContext } from '../../../../contexts/authContext';
 import { CloseIcon, OutIcon } from '../../../../components/Icons';
+import {
+	Animated,
+	Dimensions,
+	Image,
+	Modal,
+	Pressable,
+	Text,
+	TouchableWithoutFeedback,
+	View,
+} from 'react-native';
+import { useAuthContext } from '../../../../contexts/authContext';
+import styles from './styles';
 import theme from '../../../../defaultStyles';
-import { useMemo } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface DrawerProps {
 	visibility: boolean;
@@ -11,10 +20,18 @@ interface DrawerProps {
 }
 
 export default function Drawer(props: DrawerProps) {
+	const screenWidth = Dimensions.get('window').width;
+	const animatedPos = useRef(new Animated.Value(-screenWidth)).current;
 	const { currentUser, signOut } = useAuthContext();
 
 	function handleClose() {
-		props.closeModal();
+		Animated.timing(animatedPos, {
+			toValue: -screenWidth,
+			duration: 500,
+			useNativeDriver: false,
+		}).start(() => {
+			props.closeModal();
+		});
 	}
 
 	function handleSignOut() {
@@ -22,15 +39,28 @@ export default function Drawer(props: DrawerProps) {
 		signOut();
 	}
 
+	useEffect(() => {
+		Animated.timing(animatedPos, {
+			toValue: 0,
+			duration: 500,
+			delay: 500,
+			useNativeDriver: false,
+		}).start();
+	}, []);
+
+	if (!props.visibility) return null;
+
 	return (
-		<Modal
-			visible={props.visibility}
-			animationType='fade'
-			transparent
-			statusBarTranslucent
-		>
-			<View style={{ flex: 1, flexDirection: 'row' }}>
-				<View style={styles.container}>
+		<TouchableWithoutFeedback onPress={handleClose}>
+			<View style={styles.modal}>
+				<Animated.View
+					style={[
+						styles.container,
+						{
+							left: animatedPos,
+						},
+					]}
+				>
 					<View style={styles.top}>
 						<Pressable
 							style={styles.btnClose}
@@ -62,9 +92,8 @@ export default function Drawer(props: DrawerProps) {
 						<OutIcon size={20} color={theme.colors.error} />
 						<Text style={styles.outText}>Sair</Text>
 					</Pressable>
-				</View>
-				<Pressable style={styles.shadow} onPressIn={handleClose} />
+				</Animated.View>
 			</View>
-		</Modal>
+		</TouchableWithoutFeedback>
 	);
 }

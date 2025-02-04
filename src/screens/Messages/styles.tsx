@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         justifyContent: 'flex-end'
     },
-    msgList: {
-        flexDirection: 'column-reverse'
-    }, 
+    // msgList: {
+    //     flexDirection: 'column-reverse',
+    // }, 
     msgBar: {
         paddingHorizontal: 20,
         paddingVertical: 15,

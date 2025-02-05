@@ -1,9 +1,15 @@
 
-`![Print do Banner](./public/assets/print-banner.png)`
-
 # Hey Grupos!
 
 Este é um projeto em React Native desenvolvido no curso *Fábrica de Aplicativos* do [Sujeito Programador](https://github.com/sujeitoprogramador).
+
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+    <img width="200px" src="./screenshots/Screenshot_20250205_121519_heygrupos.jpg" style="border: 1px solid #ccc" />
+    <img width="200px" src="./screenshots/Screenshot_20250205_122808_heygrupos.jpg" style="border: 1px solid #ccc" />
+    <img width="200px" src="./screenshots/Screenshot_20250205_122815_heygrupos.jpg" style="border: 1px solid #ccc" />
+    <img width="200px" src="./screenshots/Screenshot_20250205_122839_heygrupos.jpg" style="border: 1px solid #ccc" />
+</div>
+
   
 ## Tecnologias utilizadas
 

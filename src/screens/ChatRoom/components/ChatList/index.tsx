@@ -7,7 +7,7 @@ import {
 	View,
 } from 'react-native';
 import { IChat } from '../../../../@types';
-import ChatItem from '../ChatItem';
+import ChatItem from '../../../../components/ChatItem';
 
 interface ChatListProps {
 	chats: IChat[];

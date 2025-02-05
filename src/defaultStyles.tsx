@@ -6,8 +6,10 @@ const theme = {
             light: 'hsl(54, 78%, 87%)',
         },
         error: '#f64b57',
-        background: '#fffff',
-        card: '#f5f5f5',
+        background: {
+            main: '#f0f0f0',
+            card: '#f8f8f9'
+        },
         text: {
             main: '#000000',
             light: '#a0a0a0',

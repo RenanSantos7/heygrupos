@@ -4,7 +4,7 @@ import theme from '../../defaultStyles';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: theme.colors.background.main,
     },
     searchBar: {
         flexDirection: 'row',
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
     },
     searchInput: {
-        backgroundColor: '#EBEBEBB2',
+        backgroundColor: '#fff',
         paddingVertical: 10,
         paddingLeft: 16,
         flex: 1,

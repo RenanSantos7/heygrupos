@@ -1,33 +1,21 @@
 import {
-	NavigationProp,
-	useIsFocused,
-	useNavigation,
-} from '@react-navigation/native';
-import {
 	FlatList,
 	Keyboard,
 	SafeAreaView,
 	StatusBar,
-	Text,
 	TextInput,
 	TouchableOpacity,
 	View,
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 
-import { AppStackParams } from '../../routes/app.routes';
 import { MagnifyingIcon } from '../../components/Icons';
-import { useAuthContext } from '../../contexts/authContext';
-import styles from './styles';
 import { IChat } from '../../@types';
-import Result from './components/Result';
+import styles from './styles';
+import ChatItem from '../../components/ChatItem';
 
 export default function Search() {
-	const { currentUser, isSignedIn } = useAuthContext();
-	const { navigate } = useNavigation<NavigationProp<AppStackParams>>();
-	const isFocused = useIsFocused();
-
 	const [query, setQuery] = useState('');
 	const [results, setResults] = useState<IChat[]>([]);
 
@@ -54,8 +42,6 @@ export default function Search() {
 		}
 	}
 
-	useEffect(() => {}, [isFocused]);
-
 	return (
 		<SafeAreaView style={styles.container}>
 			<StatusBar backgroundColor='#fff' barStyle='dark-content' />
@@ -80,8 +66,9 @@ export default function Search() {
 
 			<FlatList
 				data={results}
-				renderItem={({item}) => <Result data={item} />}
+				renderItem={({item}) => <ChatItem chat={item} />}
 				style={styles.resultsContainer}
+				ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
 			/>
 		</SafeAreaView>
 	);

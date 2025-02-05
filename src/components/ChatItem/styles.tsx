@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import theme from '../../../../defaultStyles';
+import theme from '../../defaultStyles';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: theme.colors.card,
+        backgroundColor: theme.colors.background.card,
         padding: 20,
         paddingVertical: 14,
         elevation: 1,

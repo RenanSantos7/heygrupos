@@ -1,15 +1,14 @@
 import { Alert, Text, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import firestore from '@react-native-firebase/firestore';
 
-import { AppStackParams } from '../../../../routes/app.routes';
-import { IChat } from '../../../../@types';
-import { useAuthContext } from '../../../../contexts/authContext';
+import { AppStackParams } from '../../routes/app.routes';
+import { IChat } from '../../@types';
+import { useAuthContext } from '../../contexts/authContext';
 import styles from './styles';
 
 interface ChatItemProps {
     chat: IChat;
-    deleteRoom: (id: string) => void
+    deleteRoom?: (id: string) => void
 }
 
 export default function ChatItem({ chat, deleteRoom }: ChatItemProps) {
@@ -30,6 +29,8 @@ export default function ChatItem({ chat, deleteRoom }: ChatItemProps) {
 	}
 
 	function handleLongPress() {
+		if (!deleteRoom) return
+		
 		if (chat.owner === currentUser.uid) {
 			Alert.alert(
 				'Atenção',

@@ -46,7 +46,7 @@ export default function Drawer(props: DrawerProps) {
 			delay: 500,
 			useNativeDriver: false,
 		}).start();
-	}, []);
+	}, [props.visibility]);
 
 	if (!props.visibility) return null;
 

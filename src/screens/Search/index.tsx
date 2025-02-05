@@ -1,4 +1,11 @@
 import {
+	NavigationProp,
+	useIsFocused,
+	useNavigation,
+} from '@react-navigation/native';
+import {
+	FlatList,
+	Keyboard,
 	SafeAreaView,
 	StatusBar,
 	Text,
@@ -9,11 +16,12 @@ import {
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 
+import { AppStackParams } from '../../routes/app.routes';
 import { MagnifyingIcon } from '../../components/Icons';
 import { useAuthContext } from '../../contexts/authContext';
 import styles from './styles';
-import { NavigationProp, useIsFocused, useNavigation } from '@react-navigation/native';
-import { AppStackParams } from '../../routes/app.routes';
+import { IChat } from '../../@types';
+import Result from './components/Result';
 
 export default function Search() {
 	const { currentUser, isSignedIn } = useAuthContext();
@@ -21,16 +29,32 @@ export default function Search() {
 	const isFocused = useIsFocused();
 
 	const [query, setQuery] = useState('');
+	const [results, setResults] = useState<IChat[]>([]);
 
-	function handleSearch() {
+	async function handleSearch() {
 		if (query !== '') {
-			console.log(`Buscar gurpos com ${query}`);
+			const responseSearch = await firestore()
+				.collection('MESSAGE_THREADS')
+				.where('name', '>=', query.trim())
+				.where('name', '<=', query.trim() + '\uf8ff')
+				.get()
+				.then(({ docs }) => {
+					const threads = docs.map(document => ({
+						id: document.id,
+						name: '',
+						lastMessage: {
+							text: '',
+						},
+						...document.data(),
+					}));
+					setResults(threads);
+					setQuery('');
+					Keyboard.dismiss();
+				});
 		}
 	}
 
-	useEffect(() => {
-		
-	}, [isFocused]);
+	useEffect(() => {}, [isFocused]);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -41,9 +65,10 @@ export default function Search() {
 					onChangeText={text => setQuery(text)}
 					placeholder='Digite o nome da sala'
 					autoCapitalize='none'
-					autoFocus
 					style={styles.searchInput}
+					autoFocus
 				/>
+
 				<TouchableOpacity
 					style={styles.searchBtn}
 					activeOpacity={0.75}
@@ -53,7 +78,11 @@ export default function Search() {
 				</TouchableOpacity>
 			</View>
 
-			<View style={styles.resultsContainer} />
+			<FlatList
+				data={results}
+				renderItem={({item}) => <Result data={item} />}
+				style={styles.resultsContainer}
+			/>
 		</SafeAreaView>
 	);
 }

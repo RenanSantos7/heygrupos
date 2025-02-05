@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     resultsContainer: {
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: 'red',
         flex: 1,
     }
 });

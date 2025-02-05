@@ -5,14 +5,11 @@ import {
 	SafeAreaView,
 	StatusBar,
 	TextInput,
-	TouchableHighlight,
 	TouchableOpacity,
 	View,
 } from 'react-native';
 import {
-	NavigationProp,
 	RouteProp,
-	useNavigation,
 } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
@@ -21,7 +18,6 @@ import { AppStackParams } from '../../routes/app.routes';
 import { CurrentUserMsg, Message, SystemMsg } from './components/Message';
 import { IMessage } from '../../@types';
 import { useAuthContext } from '../../contexts/authContext';
-import InputMsg from './components/Input';
 import SendIcon from '../../components/Icons/Send';
 import styles from './styles';
 import theme from '../../defaultStyles';
@@ -141,6 +137,9 @@ export default function Messages({ route }: MessagesProps) {
 					placeholderTextColor={theme.colors.text.light}
 					style={styles.input}
 					multiline
+					numberOfLines={8}
+					returnKeyLabel='Envitar'
+					returnKeyType='send'
 				/>
 
 				<TouchableOpacity

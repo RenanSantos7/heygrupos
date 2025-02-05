@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        borderRadius: 600,
+        borderRadius: 24,
         color: theme.colors.text.main,
         backgroundColor: '#fff',
         padding: 10,
